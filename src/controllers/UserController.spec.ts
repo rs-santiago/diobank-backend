@@ -5,7 +5,8 @@ import { makeMockResponse } from "../__mocks__/mockResponse.mock";
 
 describe('UserController', () => {
     const mockUserService: Partial<UserService> = {
-        createUser: jest.fn()
+        createUser: jest.fn(),
+        getAllUsers: jest.fn()
     }
     
     const userController = new UserController(mockUserService as UserService);
@@ -35,4 +36,15 @@ describe('UserController', () => {
         expect(mockResponse.state.json).toMatchObject({ message: 'Bad request! Name obrigatório' })
     });
     
+    it('Deve retornar uma lista de usuários', () => {
+        const mockRequest = {
+            body: {}
+        } as Request
+        const mockResponse = makeMockResponse()
+        const mockGetAllUsers = jest.spyOn(mockUserService, 'getAllUsers')
+        userController.getAllUsers(mockRequest, mockResponse)
+
+        expect(mockGetAllUsers).toHaveBeenCalled()
+        expect(mockResponse.state.status).toBe(200)
+    })
 })

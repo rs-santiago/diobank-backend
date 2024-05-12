@@ -35,6 +35,18 @@ describe('UserController', () => {
         expect(mockResponse.state.status).toBe(400)
         expect(mockResponse.state.json).toMatchObject({ message: 'Bad request! Name obrigatório' })
     });
+
+    it('Deve retornar uma mensagem de erro quando não informado o email', () => {
+        const mockRequest = {
+            body: {
+                name: 'Rodrigo'
+            }
+        } as Request
+        const mockResponse = makeMockResponse()
+        userController.createUser(mockRequest, mockResponse)
+        expect(mockResponse.state.status).toBe(400)
+        expect(mockResponse.state.json).toMatchObject({ message: 'Bad request! Email obrigatório' })
+    });
     
     it('Deve retornar uma lista de usuários', () => {
         const mockRequest = {

@@ -23,7 +23,7 @@ desenvolvido por [Nathally Souza](https://github.com/nathyts)
   - Verificar a resposta de erro caso o usuário não informe o name
   - Verificar se a função getAllusers está sendo chamada
 
-[ ] Implementa uma validação para o campo email
+[X] Implementar uma validação para o campo email
   - O usuário nâo pode ser criado caso não informe o email
   - Escreva o teste unitário
 

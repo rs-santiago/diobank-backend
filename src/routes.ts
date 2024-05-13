@@ -5,6 +5,7 @@ export const router = Router()
 
 const userController = new UserController()
 
-router.get('/user', userController.getAllUsers)
 router.post('/user', userController.createUser)
-router.delete('/user', userController.deleteUser)
+router.get('/user/userId/:userId', userController.getUser)
+router.get('/user/email/:email', userController.getUserByEmail)
+router.delete('/user', userController.deleteUserByEmail)

@@ -22,10 +22,11 @@ export class UserRepository {
         })
     }
 
-    getUserByEmail = async (email: string): Promise<User | null> => {
+    getUserByEmailAndPassword = async (email: string, password: string): Promise<User | null> => {
         return this.manager.findOne(User, {
             where: {
-                email
+                email,
+                password
             }
         })
     }

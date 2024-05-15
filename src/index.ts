@@ -2,6 +2,8 @@ import 'reflect-metadata'
 import express, { Request, Response } from 'express';
 import { router } from './routes';
 import { AppDataSource } from './database';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const server = express();
 

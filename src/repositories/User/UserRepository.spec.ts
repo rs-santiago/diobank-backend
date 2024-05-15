@@ -34,8 +34,8 @@ describe('UserRepository', () => {
         expect(response).toMatchObject(mockUser)
     })
 
-    it('Deve retornar um usuário com base no email', async () => {
-        const response = await userRepository.getUserByEmail(mockUser.email)
+    it('Deve retornar um usuário com base no email e senha', async () => {
+        const response = await userRepository.getUserByEmailAndPassword(mockUser.email, mockUser.password)
         expect(managerMock.findOne).toHaveBeenCalled()
         expect(response).toMatchObject(mockUser)
     })

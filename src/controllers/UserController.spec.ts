@@ -1,11 +1,11 @@
 import { UserController } from "./UserController";
 import { Request } from 'express'
 import { makeMockResponse } from "../__mocks__/mockResponse.mock";
+import { makeMockRequest } from "../__mocks__/mockRequest.mock";
 
 const mockUserService = {
     createUser: jest.fn(),
     getUser: jest.fn(),
-    getUserByEmail: jest.fn(),
     deleteUserByEmail: jest.fn()
 }
 
@@ -102,11 +102,11 @@ describe('UserController', () => {
     
     it('Deve retornar um usuário com base no userId informado', async () => {
         const userId = "test@test.com"
-        const mockRequest = {
+        const mockRequest = makeMockRequest({
             params: {
                 userId: userId
             }
-        } as unknown as Request
+        })
         const mockResponse = makeMockResponse()
         const mockGetUser = jest.spyOn(mockUserService, 'getUser')
         await userController.getUser(mockRequest, mockResponse)
@@ -125,30 +125,5 @@ describe('UserController', () => {
         expect(mockResponse.state.status).toBe(400)
         expect(mockResponse.state.json).toMatchObject({ message: 'Bad request! userId obrigatório' })
     });
-    
-    it('Deve retornar um usuário com base no email informado', async () => {
-        const email = "test@test.com"
-        const mockRequest = {
-            params: {
-                email: email
-            }
-        } as unknown as Request
-        const mockResponse = makeMockResponse()
-        const mockGetUserByEmail = jest.spyOn(mockUserService, 'getUserByEmail')
-        await userController.getUserByEmail(mockRequest, mockResponse)
-        expect(mockGetUserByEmail).toHaveBeenCalledWith(email)
-        expect(mockResponse.state.status).toBe(200)
-    })
 
-    it('Deve retornar uma mensagem de erro quando não informado o email quando deletar o usuário', () => {
-        const mockRequest = {
-            params: {
-                email: ''
-            }
-        } as unknown as Request
-        const mockResponse = makeMockResponse()
-        userController.getUserByEmail(mockRequest, mockResponse)
-        expect(mockResponse.state.status).toBe(400)
-        expect(mockResponse.state.json).toMatchObject({ message: 'Bad request! email obrigatório' })
-    });
 })

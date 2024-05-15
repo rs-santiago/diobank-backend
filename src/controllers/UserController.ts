@@ -35,16 +35,11 @@ export class UserController {
             return response.status(400).json({ message: 'Bad request! userId obrigatório'})
         }
         const user = await this.userService.getUser(userId)
-        return response.status(200).json(user)
-    }
-
-    getUserByEmail = async (request: Request, response: Response) => {
-        const email = request.params.email
-        if(!email){
-            return response.status(400).json({ message: 'Bad request! email obrigatório'})
-        }
-        const user = await this.userService.getUserByEmail(email)
-        return response.status(200).json(user)
+        return response.status(200).json({
+            id_user: user?.id_user,
+            name: user?.name,
+            email: user?.email
+        })
     }
 
     deleteUserByEmail = async (request: Request, response: Response) => {
